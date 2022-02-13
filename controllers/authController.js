@@ -4,13 +4,11 @@ const { validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 
 exports.authUser = async (req, res) => {
-  // console.log("From UserController", req.body);
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-
   const { email, password } = req.body;
 
   try {
@@ -27,11 +25,16 @@ exports.authUser = async (req, res) => {
     if (!CorrectPassword) {
       return res.status(400).json({ msg: "Wrong Password" });
     }
-
+    
+    const {id, name, lastName, type} = await user;
     // Crear JWT
     const payload = {
       user: {
-        id: user.id,
+        id,
+        name,
+        lastName,
+        email: user.email,
+        type
       },
     };
 
