@@ -15,15 +15,18 @@ router.post('/',
   taskController.createTask
 )
 
+router.get('/',
+  auth,
+  taskController.getAllTasks
+);
+
 router.get('/project/:id',
   auth,
-  access,
   taskController.getTasksByProject
 );
 
 router.get('/user/:id',
   auth,
-  access,
   taskController.getTasksByUser
 );
 

@@ -71,6 +71,18 @@ exports.getTasksByUser = async (req, res) => {
   }
 };
 
+exports.getAllTasks = async (req, res) => {
+  try {
+
+    const tasks = await Task.find();
+
+    res.json({ tasks })
+
+  } catch (error) {
+    res.status(500).send("Opps, an error has occured");
+  }
+};
+
 exports.updateTask = async (req, res) => {
   const errors = validationResult(req);
 
