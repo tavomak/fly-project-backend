@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
  
 module.exports = function(req, res, next) {
-  const token = req.header('x-auth-token');
-  
+  const token = req.header('authorization').replace('Bearer ','');
+
   if(!token) {
     return res.status(401).json({msg: "you don't have permission to access this resource"})
   }
